@@ -37,7 +37,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         Client = new();
         message.RequestUri = new Uri(@"http://localhost:27001/");
         message.Method = HttpMethod.Get;
-        message.Headers.Add("GET", Processes);
+        
 
         var response = await Client.GetAsync(message.RequestUri);
         var json = await response.Content.ReadAsStringAsync();
@@ -69,8 +69,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         var SelectedItemName = (ProcessBox.SelectedItem as Process).ProcessName;
         message = new();
         message.RequestUri = new Uri(@"http://localhost:27001/");
-        message.Headers.Add("DELETE", SelectedItemName);
+
         message.Method = HttpMethod.Delete;
+        message.Content = new StringContent(SelectedItemName);
         var response = await Client.DeleteAsync(message.RequestUri);
         var json = await response.Content.ReadAsStringAsync();
         MessageBox.Show(json);
