@@ -37,7 +37,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         Client = new();
         message.RequestUri = new Uri(@"http://localhost:27001/");
         message.Method = HttpMethod.Get;
-        
+
 
         var response = await Client.GetAsync(message.RequestUri);
         var json = await response.Content.ReadAsStringAsync();
@@ -50,14 +50,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         var SelectedItemName = RunBox.Text;
         message = new();
         Client = new();
-        Client.DefaultRequestHeaders.Add("POST", "application.json");
+
         message.RequestUri = new Uri(@"http://localhost:27001/");
         message.Method = HttpMethod.Post;
-        message.Headers.Add("POST", SelectedItemName);
-        
-              
-       
-        var response = await Client.PostAsync(message.RequestUri,message.Content);
+
+        message.Content = new StringContent(SelectedItemName);
+
+
+        var response = await Client.PostAsync(message.RequestUri, message.Content);
         var json = await response.Content.ReadAsStringAsync();
         MessageBox.Show(json);
     }
@@ -66,14 +66,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         message = new();
         Client = new();
-        var SelectedItemName = (ProcessBox.SelectedItem as Process).ProcessName;
-        message = new();
-        message.RequestUri = new Uri(@"http://localhost:27001/");
+        var SelectedItemName = ProcessBox.SelectedItem.ToString();
 
         message.Method = HttpMethod.Delete;
+        message.RequestUri = new Uri(@"http://localhost:27001/");
         message.Content = new StringContent(SelectedItemName);
-        var response = await Client.DeleteAsync(message.RequestUri);
+        var response = await Client.SendAsync(message);
         var json = await response.Content.ReadAsStringAsync();
+        
         MessageBox.Show(json);
     }
 }

@@ -18,7 +18,7 @@
             <Button Name="GETButton" Content="GET" Width="100" Margin="10" Height="70" FontSize="30" FontWeight="Bold" Click="GETButton_Click"/>
             <Button Name="RUNButton" Content="RUN" Width="100" Margin="10" Height="70" FontSize="30" FontWeight="Bold" Click="RUNButton_Click"/>
             <Button Name="KILLButton" Content="KILL" Width="100" Margin="10" Height="70" FontSize="30" FontWeight="Bold" Click="KILLButton_Click"/>
-            <TextBox Width="130" Height="50" FontSize="18" Name="RunBox"/>
+            <TextBox Width="119" Height="50" FontSize="18" Name="RunBox"/>
         </StackPanel>
     </Grid>
 </Window>
